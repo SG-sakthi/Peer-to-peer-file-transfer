@@ -59,9 +59,7 @@ function initialize () {
 
   hub = signalhub(`peertransfer-${key.substr(0, 8)}`, hubs)
   sw = swarm(hub, {
-    // The goal here is to protect the signaling data that's beeing exchanged
-    // between peers on WebRTC connection establishment. It includes available
-    // IP addresses (could be local ones!) among other things.
+
     wrap: (data, channel) => {
       if (!data.signal || channel === '/all') return data
       data.signal = JSON.stringify(data.signal)
@@ -159,7 +157,7 @@ function step (i) {
 }
 
 function randomHex (len) {
-  // https://github.com/mafintosh/webrtc-swarm/commit/ce77175c7d48cf4fad11c5e40f8869ebf0d7f303#diff-1dd241c4cd3fd1dd89c570cee98b79dd
+  
   return crypto.randomBytes(Math.ceil(len / 2))
     .toString('hex')
     .slice(0, len)
